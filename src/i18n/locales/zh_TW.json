@@ -1,0 +1,9 @@
+{
+  "#common": {
+    "noGPS": "你的裝置或瀏覽器不支援定位功能"
+  },
+  "#landingPage": {
+    "start": "開始探索！",
+    "location": "你目前定位於"
+  }
+}

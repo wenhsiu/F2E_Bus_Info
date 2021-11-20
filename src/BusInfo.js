@@ -6,9 +6,12 @@ import { AppContext } from './context/AppContext';
 import { theme } from './style/createTheme';
 import LandingPage from './components/LandingPage';
 import ApiClient from './services/api';
+import { useTranslation } from 'react-i18next';
 
 const BusInfo = () => {
+  const { t } = useTranslation();
   const [userLocation, setUserLocation] = useState({});
+  const [GPSLoading, setGPSLoading] = useState(true);
 
   const api = useMemo(() => new ApiClient(), []);
 
@@ -22,7 +25,11 @@ const BusInfo = () => {
       return city;
     };
 
-    if (!('geolocation' in navigator)) alert('你的裝置或瀏覽器不支援定位功能');
+    if (!('geolocation' in navigator)) {
+      alert(t('#common.noGPS'));
+      setGPSLoading(false);
+      return;
+    }
 
     const id = navigator.geolocation.watchPosition(async (position) => {
       const location = {
@@ -35,15 +42,16 @@ const BusInfo = () => {
         ...location,
         city,
       });
+      setGPSLoading(false);
     });
 
     return () => navigator.geolocation.clearWatch(id);
-  }, [api.location]);
+  }, [api.location, t]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppContext.Provider value={{ api, userLocation }}>
+      <AppContext.Provider value={{ api, userLocation, GPSLoading }}>
         <HashRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
