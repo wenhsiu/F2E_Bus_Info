@@ -8,9 +8,9 @@ const colors = {
   illusionPink: '#F69DAB',
   softAmber: '#D7BFA3',
   salomie: '#FFD179',
-  waterLeaf:'#ADF0E0',
+  waterLeaf: '#ADF0E0',
   linen: '#F5EFE8',
-  solitude:'#F2F5FD',
+  solitude: '#F2F5FD',
   whisper: '#E9E6E6',
   solitarie: '#E6D7C6',
   white: '#FFFFFF',
@@ -34,9 +34,9 @@ export const theme = createTheme({
       main: colors.blackPearl,
       hyperlinkColor: colors.blackPearl,
     },
-    // secondary: {
-    //   main: colors.deepGreen,
-    // },
+    secondary: {
+      main: colors.goldenYellow,
+    },
     text: {
       primary: colors.blackPearl,
       secondary: colors.white,
