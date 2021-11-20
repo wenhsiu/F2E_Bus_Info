@@ -1,0 +1,15 @@
+{
+  "short_name": "等公車",
+  "name": "公車動態系統",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "132x62"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#111C26",
+  "background_color": "#ffffff"
+}
