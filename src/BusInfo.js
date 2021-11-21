@@ -7,6 +7,7 @@ import { theme } from './style/createTheme';
 import LandingPage from './components/LandingPage';
 import ApiClient from './services/api';
 import { useTranslation } from 'react-i18next';
+import SearchPage from './components/SearchPage';
 
 const BusInfo = () => {
   const { t } = useTranslation();
@@ -17,12 +18,12 @@ const BusInfo = () => {
 
   useEffect(() => {
     const fetchUserCity = async (position) => {
-      let city = '';
+      let cityInfo = {};
       try {
-        city = await api.location.getUserCity(position);
+        cityInfo = await api.location.getUserCity(position);
       } catch (err) {}
 
-      return city;
+      return cityInfo;
     };
 
     if (!('geolocation' in navigator)) {
@@ -31,16 +32,16 @@ const BusInfo = () => {
       return;
     }
 
-    const id = navigator.geolocation.watchPosition(async (position) => {
+    const id = navigator.geolocation.getCurrentPosition(async (position) => {
       const location = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       };
-      const city = await fetchUserCity(location);
+      const cityInfo = await fetchUserCity(location);
 
       setUserLocation({
         ...location,
-        city,
+        ...cityInfo,
       });
       setGPSLoading(false);
     });
@@ -55,6 +56,7 @@ const BusInfo = () => {
         <HashRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </HashRouter>
       </AppContext.Provider>

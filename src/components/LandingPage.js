@@ -7,6 +7,8 @@ import { ReactComponent as Logo } from '../assets/logo.svg';
 import { ReactComponent as SpotIcon } from '../assets/spot_icon_white.svg';
 import { AppContext } from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
+import { PATH } from '../constant';
+import { useNavigate } from 'react-router';
 
 const useStyle = makeStyles((theme) =>
   createStyles({
@@ -27,6 +29,7 @@ const useStyle = makeStyles((theme) =>
 
 const LandingPage = () => {
   const classes = useStyle();
+  const navigate = useNavigate();
   const { userLocation, GPSLoading } = useContext(AppContext);
   const { t } = useTranslation();
 
@@ -51,11 +54,15 @@ const LandingPage = () => {
           <Typography color="textSecondary">{t('#landingPage.location')}</Typography>
         </Grid>
         <Grid item>
-          {GPSLoading ? <CircularProgress color="secondary" size={26} /> : <Chip label={userLocation.city} />}
+          {GPSLoading ? <CircularProgress color="secondary" size={26} /> : <Chip label={userLocation.CityName} />}
         </Grid>
       </Grid>
       <Grid item>
-        <Button className={classes.startButton} label={t('#landingPage.start')} />
+        <Button
+          className={classes.startButton}
+          label={t('#landingPage.start')}
+          onClick={() => navigate(`${PATH.SEARCH}`)}
+        />
       </Grid>
     </Grid>
   );
