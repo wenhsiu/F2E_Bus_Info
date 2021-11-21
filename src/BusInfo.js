@@ -6,47 +6,57 @@ import { AppContext } from './context/AppContext';
 import { theme } from './style/createTheme';
 import LandingPage from './components/LandingPage';
 import ApiClient from './services/api';
+import { useTranslation } from 'react-i18next';
+import SearchPage from './components/SearchPage';
 
 const BusInfo = () => {
+  const { t } = useTranslation();
   const [userLocation, setUserLocation] = useState({});
+  const [GPSLoading, setGPSLoading] = useState(true);
 
   const api = useMemo(() => new ApiClient(), []);
 
   useEffect(() => {
     const fetchUserCity = async (position) => {
-      let city = '';
+      let cityInfo = {};
       try {
-        city = await api.location.getUserCity(position);
+        cityInfo = await api.location.getUserCity(position);
       } catch (err) {}
 
-      return city;
+      return cityInfo;
     };
 
-    if (!('geolocation' in navigator)) alert('你的裝置或瀏覽器不支援定位功能');
+    if (!('geolocation' in navigator)) {
+      alert(t('#common.noGPS'));
+      setGPSLoading(false);
+      return;
+    }
 
-    const id = navigator.geolocation.watchPosition(async (position) => {
+    const id = navigator.geolocation.getCurrentPosition(async (position) => {
       const location = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       };
-      const city = await fetchUserCity(location);
+      const cityInfo = await fetchUserCity(location);
 
       setUserLocation({
         ...location,
-        city,
+        ...cityInfo,
       });
+      setGPSLoading(false);
     });
 
     return () => navigator.geolocation.clearWatch(id);
-  }, [api.location]);
+  }, [api.location, t]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppContext.Provider value={{ api, userLocation }}>
+      <AppContext.Provider value={{ api, userLocation, GPSLoading }}>
         <HashRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </HashRouter>
       </AppContext.Provider>

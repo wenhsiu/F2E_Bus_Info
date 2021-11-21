@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, CircularProgress } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import React, { useContext } from 'react';
 import Button from './common/Button';
@@ -6,6 +6,9 @@ import Chip from './common/Chip';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 import { ReactComponent as SpotIcon } from '../assets/spot_icon_white.svg';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
+import { PATH } from '../constant';
+import { useNavigate } from 'react-router';
 
 const useStyle = makeStyles((theme) =>
   createStyles({
@@ -14,7 +17,7 @@ const useStyle = makeStyles((theme) =>
       height: '100vh',
       margin: 0,
     },
-    searchButton: {
+    startButton: {
       lineHeight: '44px',
       width: 306,
     },
@@ -26,7 +29,9 @@ const useStyle = makeStyles((theme) =>
 
 const LandingPage = () => {
   const classes = useStyle();
-  const { userLocation } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { userLocation, GPSLoading } = useContext(AppContext);
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -46,14 +51,18 @@ const LandingPage = () => {
           <SpotIcon className={classes.spotIcon} />
         </Grid>
         <Grid item>
-          <Typography color="textSecondary">你目前定位於</Typography>
+          <Typography color="textSecondary">{t('#landingPage.location')}</Typography>
         </Grid>
         <Grid item>
-          <Chip label={userLocation.city} />
+          {GPSLoading ? <CircularProgress color="secondary" size={26} /> : <Chip label={userLocation.CityName} />}
         </Grid>
       </Grid>
       <Grid item>
-        <Button className={classes.searchButton} label="開始探索！" />
+        <Button
+          className={classes.startButton}
+          label={t('#landingPage.start')}
+          onClick={() => navigate(`${PATH.SEARCH}`)}
+        />
       </Grid>
     </Grid>
   );

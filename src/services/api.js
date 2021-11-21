@@ -21,6 +21,7 @@ const GetAuthorizationHeader = () => {
 
 export default class ApiClient {
   #authHeader = GetAuthorizationHeader();
+
   constructor() {
     this.location = createLocationService(this.#authHeader);
   }

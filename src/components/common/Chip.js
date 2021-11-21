@@ -11,6 +11,7 @@ const useStyle = makeStyles((theme) =>
 
 const Chip = ({ ...props }) => {
   const style = useStyle();
+
   return <MuiChip classes={{ root: style.root }} {...props} />;
 };
 

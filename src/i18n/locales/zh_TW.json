@@ -1,0 +1,17 @@
+{
+  "#common": {
+    "noGPS": "你的裝置或瀏覽器不支援定位功能"
+  },
+  "#landingPage": {
+    "start": "開始探索！",
+    "location": "你目前定位於"
+  },
+  "#searchPage": {
+    "currentCity": "目前顯示城市：",
+    "enterBusNum": "輸入{{city}}公車路線",
+    "nearStop": "最近站牌",
+    "distance": "距離你",
+    "numMeters": "{{num}} 公尺",
+    "viewSights": "探索景點"
+  }
+}
