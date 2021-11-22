@@ -12,6 +12,7 @@ const useStyle = makeStyles((theme) =>
     header: {
       backgroundColor: theme.colors.blackPearl,
       margin: 0,
+      padding: 8,
     },
     container: {
       margin: 0,
@@ -37,7 +38,7 @@ const SearchHeader = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid container spacing={2} className={classes.header}>
+    <Grid container className={classes.header}>
       <Grid
         item
         container

@@ -1,4 +1,5 @@
 import jsSHA from 'jssha';
+import createBusService from './bus';
 import createLocationService from './location';
 
 const GetAuthorizationHeader = () => {
@@ -24,5 +25,6 @@ export default class ApiClient {
 
   constructor() {
     this.location = createLocationService(this.#authHeader);
+    this.bus = createBusService(this.#authHeader);
   }
 }

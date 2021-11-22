@@ -12,6 +12,7 @@
     "nearStop": "最近站牌",
     "distance": "距離你",
     "numMeters": "{{num}} 公尺",
-    "viewSights": "探索景點"
+    "viewSights": "探索景點",
+    "estimateTime": "{{min}} 分"
   }
 }

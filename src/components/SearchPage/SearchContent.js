@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import NearestBusStopCard from './NearestBusStopCard';
 import { AppContext } from '../../context/AppContext';
+import NearestBusStopBusList from './NearestBusStopBusList';
 
 const useStyle = makeStyles((theme) =>
   createStyles({
@@ -43,8 +44,9 @@ const SearchContent = () => {
   }, [GPSLoading, fetchNearestBusStop, userLocation]);
 
   return (
-    <Grid container spacing={2} className={classes.content}>
+    <Grid container className={classes.content}>
       <NearestBusStopCard stopInfo={stopInfo} stopInfoLoading={stopInfoLoading} />
+      <NearestBusStopBusList stopInfo={stopInfo} stopInfoLoading={stopInfoLoading} />
     </Grid>
   );
 };
